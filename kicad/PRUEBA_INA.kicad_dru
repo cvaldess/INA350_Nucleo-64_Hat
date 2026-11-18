@@ -1,0 +1,24 @@
+(version 1)
+
+# PRUEBA_INA (05-11-2026). Reglas que las clases de red no expresan (como el MS1).
+
+# 1) Paso fino: entre patas de un mismo CI quedan 0,15 mm (SOT-23-8, HVSSOP-8 y MSOP-8 de 0,65) frente a los 0,16 de la
+#    placa. Sólo pad con pad de la misma pieza.
+(rule "patas_mismo_ci"
+	(condition "A.Type == 'Pad' && B.Type == 'Pad' && ((A.memberOfFootprint('U1') && B.memberOfFootprint('U1')) || (A.memberOfFootprint('U2') && B.memberOfFootprint('U2')) || (A.memberOfFootprint('U3') && B.memberOfFootprint('U3')) || (A.memberOfFootprint('U6') && B.memberOfFootprint('U6')) || (A.memberOfFootprint('U8') && B.memberOfFootprint('U8')))")
+	(constraint clearance (min 0.15mm)))
+
+# 2) Vías térmicas del pad expuesto de los TLV767: unidas al relleno sin alivio (si no, «starved_thermal», y también disipan mejor).
+(rule "ep_tlv_solido"
+	(condition "A.Type == 'Pad' && A.Pad_Number == '9' && (A.memberOfFootprint('U1') || A.memberOfFootprint('U2') || A.memberOfFootprint('U3'))")
+	(constraint zone_connection solid))
+
+# 3) Patas de GND de los zócalos: pueden quedar con un solo radio en F.Cu si pasan pistas al lado; siguen unidas al plano In1 y a B.Cu.
+(rule "zocalo_un_radio"
+	(condition "A.Type == 'Pad' && (A.memberOfFootprint('J3') || A.memberOfFootprint('J4'))")
+	(constraint min_resolved_spokes 1))
+
+# 4) Pads SMD pequeños unidos al relleno de GND: basta un radio del alivio térmico (las patas vecinas tapan los demás).
+(rule "termico_un_radio"
+	(condition "A.Type == 'Pad' && A.Pad_Type == 'SMD'")
+	(constraint min_resolved_spokes 1))

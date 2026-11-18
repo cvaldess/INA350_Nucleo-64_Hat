@@ -1,0 +1,11 @@
+# Claude Code local permissions (may contain secrets)
+.claude/settings.local.json
+
+# KiCad local and generated files
+*.kicad_prl
+.history/
+*-backups/
+fp-info-cache
+*.lck
+\#auto_saved_files\#
+_autosave-*
