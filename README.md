@@ -16,6 +16,8 @@ at the same time with its own ADCs, synchronised with a load-step timer, and sen
 
 *Concept image, not a photo of an assembled board.*
 
+<a href="https://www.pcbway.com/project/shareproject/INA350_Nucleo_64_Hat_3d76e212.html"><img src="https://www.pcbway.com/project/img/images/frompcbway-1220.png" alt="PCB from PCBWay" /></a>
+
 | PCB layout | 3D view |
 |---|---|
 | ![PCB layout](images/INA350_NucleHat-2D.JPG) | ![3D view](images/INA350_NucleHat-3D.JPG) |
